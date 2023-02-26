@@ -100,7 +100,7 @@ static void GUIX11ProcessEvent(MyPlugin *plugin, XEvent *event) {
 static void GUIOnPOSIXFD(MyPlugin *plugin) {
 	XFlush(plugin->gui->display);
 
-	if (XPending(plugin->gui->display)) {
+	while (XPending(plugin->gui->display)) {
 		XEvent event;
 		XNextEvent(plugin->gui->display, &event);
 
@@ -122,6 +122,4 @@ static void GUIOnPOSIXFD(MyPlugin *plugin) {
 		XFlush(plugin->gui->display);
 		GUIPaint(plugin, true);
 	}
-
-	XFlush(plugin->gui->display);
 }
